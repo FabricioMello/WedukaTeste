@@ -23,13 +23,15 @@ namespace PessoasAPI.Controllers
 
         // GET: api/Contatos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Contato>>> GetContato()
+        public async Task<ActionResult<IEnumerable<Contato>>> GetContatos(int idPessoa)
         {
           if (_context.Contato == null)
           {
               return NotFound();
           }
-            return await _context.Contato.ToListAsync();
+            return await _context.Contato
+                .Where(x => x.PessoaId == idPessoa)
+                .ToListAsync();
         }
 
         // GET: api/Contatos/5
